@@ -82,9 +82,12 @@ class Base_Dispatcher_Routes {
 	 */
     public static function uriMatchRule() {
     
+    	$urlPrefix=Base::getParameter("EFW_URL_PREFIX");
+    	if ($urlPrefix) {
+    		$_SERVER["REQUEST_URI"]=str_replace($urlPrefix,"",$_SERVER["REQUEST_URI"]);
+    	}
 		$retVal=false;
-	//	dump_var(self::$Routes); 
-	//	dump_var(self::$Routes);
+
 		foreach(self::$Routes as $idx => $routeDef) {
 			$expression=$routeDef[0];
 			if (substr($expression,-1)!="/") $expression.="/";
